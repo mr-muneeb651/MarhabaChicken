@@ -27,13 +27,18 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-white);
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
         }
 
         a { text-decoration: none; color: inherit; }
@@ -651,11 +656,23 @@
 
         @media (max-width: 480px) {
             .footer-grid { grid-template-columns: 1fr; }
-            .products-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+            .products-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
             .container { padding: 0 15px; }
             .nav-actions { gap: 8px; }
             .cart-btn span.cart-label { display: none; }
+            .cart-btn { padding: 8px 10px; }
+            .logo { font-size: 1.05rem; gap: 6px; }
+            .logo span { display: inline; }
+            header { padding: 12px 0; }
+            .hero-title { font-size: 1.7rem; }
+            .badge { font-size: 0.75rem; padding: 6px 12px; }
+            .deal-title { font-size: 1.2rem; }
+            .new-price { font-size: 1.3rem; }
         }
+
+        /* Global overflow guard: nothing should be able to force horizontal scroll */
+        img, svg, video { max-width: 100%; height: auto; }
+        .hero-image-wrapper img { height: auto; }
     </style>
 </head>
 <body>
@@ -696,7 +713,6 @@
             </ul>
             <div class="nav-actions">
                 <button class="cart-btn" id="cartBtn"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-label">Cart</span> (<span id="cartCount">0</span>)</button>
-                <button class="btn btn-yellow" id="orderNowBtn">Order Now</button>
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
             </div>
             <div class="mobile-nav-panel" id="mobileNavPanel">
@@ -1086,9 +1102,6 @@
 
             // Logo -> home
             document.getElementById('logoBtn').addEventListener('click', () => scrollToId('top'));
-
-            // Order Now (header) -> jump to menu
-            document.getElementById('orderNowBtn').addEventListener('click', () => scrollToId('popular'));
 
             // Mobile menu toggle
             document.getElementById('menuToggle').addEventListener('click', toggleMobileNav);
